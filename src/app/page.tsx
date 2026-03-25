@@ -1,7 +1,7 @@
 "use client";
 import Link from 'next/link';
-// Tambahkan Download di sini agar terbaca di bagian tools
-import { Image, Scissors, CreditCard, Sparkles, ArrowRight, Zap, Type, Download } from 'lucide-react';
+// Tambahkan Star dan Review di sini
+import { Image, Scissors, CreditCard, Sparkles, ArrowRight, Zap, Type, Download, Star } from 'lucide-react';
 
 const tools = [
   {
@@ -35,6 +35,14 @@ const tools = [
     href: "/canvas",
     color: "from-orange-500 to-red-400",
     shadow: "shadow-orange-100",
+  },
+  {
+    title: "User Feedback",
+    desc: "Lihat ulasan pengguna & berikan rating log untuk KyTools.",
+    icon: <Star className="w-5 h-5" />,
+    href: "/reviews",
+    color: "from-yellow-500 to-orange-400",
+    shadow: "shadow-yellow-100",
   },
   {
     title: "AI Photo Editor",
@@ -99,7 +107,7 @@ export default function Home() {
 
       {/* Simple Footer */}
       <footer className="py-10 text-center text-gray-400 text-[10px] font-bold tracking-widest uppercase border-t border-gray-50 bg-white">
-        © 2026 Fadhillah Dzaki Nasrullah • Klaten
+        © 2026 Fadhillah Dzaki Nasrullah
       </footer>
     </main>
   );
