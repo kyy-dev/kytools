@@ -1,20 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'api.siputzx.my.id',
-        port: '',
-        pathname: '/**',
-      },
-    ],
-  },
-  // Mengabaikan error saat build di Vercel agar lancar
+  // Abaikan error ESLint pas build di Vercel
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // Abaikan error TypeScript pas build di Vercel
   typescript: {
     ignoreBuildErrors: true,
   },
