@@ -1,7 +1,10 @@
 "use client";
 import Link from 'next/link';
-// Import FileJson ditambahkan di sini
-import { Image, Scissors, CreditCard, Sparkles, ArrowRight, Zap, Type, Download, Star, FileJson } from 'lucide-react';
+// Import FileJson dan ShieldCheck ditambahkan
+import { 
+  Image, Scissors, Sparkles, ArrowRight, Zap, 
+  Type, Download, Star, FileJson, ShieldCheck 
+} from 'lucide-react';
 
 const tools = [
   {
@@ -37,6 +40,14 @@ const tools = [
     shadow: "shadow-amber-100",
   },
   {
+    title: "Base64 Tool",
+    desc: "Enkripsi teks ke Base64 atau dekripsi balik dengan aman.",
+    icon: <ShieldCheck className="w-5 h-5" />,
+    href: "/tools/base64",
+    color: "from-indigo-600 to-purple-500",
+    shadow: "shadow-indigo-100",
+  },
+  {
     title: "Canvas Magic",
     desc: "Beri efek unik 'Affect' atau 'Invert' pada fotomu.",
     icon: <Sparkles className="w-5 h-5" />,
@@ -46,7 +57,7 @@ const tools = [
   },
   {
     title: "User Feedback",
-    desc: "Lihat ulasan pengguna & berikan rating log untuk KyTools.",
+    desc: "Lihat ulasan pengguna & berikan ulasan untuk KyTools.",
     icon: <Star className="w-5 h-5" />,
     href: "/reviews",
     color: "from-yellow-500 to-orange-400",
@@ -65,57 +76,75 @@ const tools = [
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#FBFBFE]">
-      {/* Simple Navbar */}
-      <nav className="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-gray-100 px-6 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2 font-black text-xl tracking-tighter italic">
-          <div className="bg-blue-600 p-1 rounded-lg text-white not-italic"><Zap size={18} fill="currentColor"/></div>
-          Ky<span className="text-blue-600">TOOLS</span>
+    <main className="min-h-screen bg-[#FBFBFE] selection:bg-blue-100 selection:text-blue-600">
+      {/* Navbar with Glassmorphism */}
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100/50 px-6 h-16 flex items-center justify-between">
+        <div className="flex items-center gap-2 font-black text-xl tracking-tighter italic group cursor-pointer">
+          <div className="bg-blue-600 p-1 rounded-lg text-white not-italic group-hover:rotate-12 transition-transform duration-300">
+            <Zap size={18} fill="currentColor"/>
+          </div>
+          <span className="group-hover:text-blue-600 transition-colors">Ky</span>TOOLS
         </div>
-        <Link href="/pricing" className="bg-gray-900 text-white text-xs font-bold px-5 py-2.5 rounded-full hover:bg-blue-600 transition-all shadow-xl shadow-gray-200">
+        <Link href="/pricing" className="bg-slate-900 text-white text-[11px] font-black px-6 py-2.5 rounded-full hover:bg-blue-600 active:scale-95 transition-all shadow-lg shadow-gray-200 uppercase tracking-widest">
           UPGRADE PRO
         </Link>
       </nav>
 
-      {/* Hero */}
-      <section className="pt-20 pb-12 px-6 text-center">
-        <div className="inline-block bg-blue-50 text-blue-700 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
-          ✨ Next-Gen AI Toolkit
+      {/* Hero Section - Refined Typography */}
+      <section className="pt-24 pb-16 px-6 text-center">
+        <div className="inline-flex items-center gap-2 bg-blue-50/50 text-blue-600 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-8 border border-blue-100/50 animate-pulse">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+          </span>
+          Next-Gen AI Toolkit
         </div>
-        <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1] mb-6">
-          Edit Cepat. <br/><span className="text-blue-600">Hasil Hebat.</span>
+        <h1 className="text-6xl md:text-8xl font-black text-slate-900 leading-[0.95] mb-8 tracking-tighter">
+          Edit Cepat. <br/><span className="text-blue-600 drop-shadow-sm">Hasil Hebat.</span>
         </h1>
-        <p className="max-w-md mx-auto text-slate-500 text-sm md:text-base leading-relaxed">
-          Kumpulan alat bantu digital berbasis AI untuk mempermudah workflow kreatifmu setiap hari.
+        <p className="max-w-xl mx-auto text-slate-500 text-sm md:text-lg font-medium leading-relaxed opacity-80">
+          Satu tempat untuk semua kebutuhan digitalmu. Ringan, cepat, dan bertenaga AI untuk produktivitas harian.
         </p>
       </section>
 
-      {/* Grid */}
-      <section className="max-w-5xl mx-auto px-6 pb-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Grid Section - Improved Card Design */}
+      <section className="max-w-6xl mx-auto px-6 pb-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {tools.map((tool) => (
-          <Link key={tool.title} href={tool.href} className="group relative bg-white p-8 rounded-[32px] border border-gray-100 hover:border-blue-200 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-100 overflow-hidden">
-             <div className={`absolute -right-4 -top-4 w-24 h-24 bg-gradient-to-br ${tool.color} opacity-5 blur-2xl group-hover:scale-150 transition-transform`} />
+          <Link 
+            key={tool.title} 
+            href={tool.href} 
+            className={`group relative bg-white p-8 rounded-[40px] border border-gray-100/80 hover:border-blue-200 transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] overflow-hidden ${tool.isSoon ? 'cursor-not-allowed' : ''}`}
+          >
+             {/* Dynamic Gradient Background Glow */}
+             <div className={`absolute -right-4 -top-4 w-32 h-32 bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-10 blur-3xl transition-opacity duration-500`} />
              
-             <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center text-white mb-6 shadow-lg shadow-current/20`}>
+             {/* Icon Box */}
+             <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center text-white mb-8 shadow-xl shadow-current/10 group-hover:scale-110 transition-transform duration-500`}>
                 {tool.icon}
              </div>
 
-             <div className="flex items-center gap-2 mb-2">
-               <h3 className="text-xl font-bold text-slate-800">{tool.title}</h3>
-               {tool.isSoon && <span className="text-[9px] bg-slate-100 text-slate-400 px-2 py-0.5 rounded-full font-bold uppercase">Soon</span>}
+             <div className="flex items-center gap-2 mb-3">
+               <h3 className="text-2xl font-black text-slate-800 tracking-tight">{tool.title}</h3>
+               {tool.isSoon && (
+                 <span className="text-[8px] bg-slate-100 text-slate-400 px-2.5 py-1 rounded-full font-black uppercase tracking-widest">Soon</span>
+               )}
              </div>
-             <p className="text-slate-500 text-sm leading-relaxed mb-8">{tool.desc}</p>
+             <p className="text-slate-500 text-[14px] leading-relaxed mb-10 font-medium opacity-70 group-hover:opacity-100 transition-opacity">
+               {tool.desc}
+             </p>
              
-             <div className="flex items-center text-xs font-black uppercase tracking-widest text-blue-600 group-hover:gap-2 transition-all">
-               Mulai <ArrowRight size={14} />
+             <div className="flex items-center text-[11px] font-black uppercase tracking-[0.15em] text-blue-600 group-hover:translate-x-2 transition-transform duration-300">
+               Mulai Eksplorasi <ArrowRight size={16} className="ml-2" />
              </div>
           </Link>
         ))}
       </section>
 
-      {/* Simple Footer */}
-      <footer className="py-10 text-center text-gray-400 text-[10px] font-bold tracking-widest uppercase border-t border-gray-50 bg-white">
-        © 2026 Fadhillah Dzaki Nasrullah
+      {/* Minimalist Footer */}
+      <footer className="py-12 text-center border-t border-gray-100 bg-white/50">
+        <p className="text-gray-400 text-[10px] font-black tracking-[0.3em] uppercase">
+          © 2026 Fadhillah Dzaki Nasrullah • Klaten, ID
+        </p>
       </footer>
     </main>
   );
