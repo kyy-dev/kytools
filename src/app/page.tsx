@@ -1,9 +1,13 @@
 "use client";
-import Link from 'next/link';
+import { useState } from "react";
+import Link from "next/link";
 import { 
-  Image, Scissors, Sparkles, ArrowRight, Zap, 
-  Type, Download, Star, FileJson, ShieldCheck, FileImage, Layers 
-} from 'lucide-react';
+  ArrowLeft, Download, Play, Music, 
+  Video, Loader2, Globe, 
+  Instagram, Facebook, Youtube, Music2, Share2, 
+  Github
+} from "lucide-react";
+
 
 const tools = [
   {
