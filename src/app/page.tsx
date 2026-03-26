@@ -1,7 +1,7 @@
 "use client";
 import Link from 'next/link';
-// Tambahkan Star dan Review di sini
-import { Image, Scissors, CreditCard, Sparkles, ArrowRight, Zap, Type, Download, Star } from 'lucide-react';
+// Import FileJson ditambahkan di sini
+import { Image, Scissors, CreditCard, Sparkles, ArrowRight, Zap, Type, Download, Star, FileJson } from 'lucide-react';
 
 const tools = [
   {
@@ -27,6 +27,14 @@ const tools = [
     href: "/downloader",
     color: "from-green-500 to-emerald-400",
     shadow: "shadow-emerald-100",
+  },
+  {
+    title: "JSON Formatter",
+    desc: "Rapikan kode JSON yang berantakan atau cek error format.",
+    icon: <FileJson className="w-5 h-5" />,
+    href: "/tools/json-formatter",
+    color: "from-amber-500 to-yellow-400",
+    shadow: "shadow-amber-100",
   },
   {
     title: "Canvas Magic",
