@@ -1,87 +1,55 @@
-import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { NextResponse } from 'next/server';
+import axios from 'axios';
 
-// 1. Tentukan lokasi file jembatan JSON di root folder
-const filePath = path.join(process.cwd(), "reviews.json");
+// Link RAW yang kamu kasih tadi
+const RAW_GITHUB_URL = "https://raw.githubusercontent.com/kyy-dev/kytools/refs/heads/main/reviews.json";
+const GITHUB_API_URL = "https://api.github.com/repos/kyy-dev/kytools/contents/reviews.json";
 
-// --- FUNGSI PEMBANTU (HELPERS) ---
-
-// Fungsi buat baca data dari file JSON
-const getReviews = () => {
-  try {
-    // Cek dulu filenya ada atau nggak
-    if (!fs.existsSync(filePath)) {
-      fs.writeFileSync(filePath, "[]", "utf-8");
-      return [];
-    }
-
-    const data = fs.readFileSync(filePath, "utf-8");
-    
-    // Kalau filenya kosong melompong (0 bytes), balikin array kosong
-    if (!data.trim()) {
-      return [];
-    }
-
-    return JSON.parse(data);
-  } catch (error) {
-    console.error("❌ Error pas baca JSON:", error);
-    return [];
-  }
-};
-
-// Fungsi buat simpan data ke file JSON (Menimpa file lama)
-const saveReviews = (reviews: any) => {
-  try {
-    const dataString = JSON.stringify(reviews, null, 2);
-    fs.writeFileSync(filePath, dataString, "utf-8");
-    console.log("✅ Berhasil nulis ke reviews.json!");
-  } catch (error) {
-    console.error("❌ Gagal nulis ke file:", error);
-    throw new Error("Gagal menyimpan database lokal");
-  }
-};
-
-// --- HANDLER API ---
-
-// Ambil semua ulasan (GET)
 export async function GET() {
-  const reviews = getReviews();
-  return NextResponse.json(reviews);
+  try {
+    // Ambil data langsung dari link RAW biar PASTI ada isinya
+    const response = await axios.get(`${RAW_GITHUB_URL}?t=${Date.now()}`); // Pake ?t= biar gak kena cache
+    return NextResponse.json(response.data);
+  } catch (error) {
+    return NextResponse.json([], { status: 200 }); // Balikin array kosong kalau gagal
+  }
 }
 
-// Tambah ulasan baru (POST)
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   try {
-    // 1. Ambil data dari body request
-    const body = await req.json();
+    const body = await request.json();
+    const { name, rating, comment } = body;
 
-    // 2. Ambil data lama
-    const currentReviews = getReviews();
+    // 1. Ambil data lama & SHA file (wajib buat update di GitHub)
+    const { data: fileData } = await axios.get(GITHUB_API_URL, {
+      headers: { Authorization: `Bearer ${process.env.GH_TOKEN}` }
+    });
 
-    // 3. Buat objek ulasan baru
+    const currentContent = JSON.parse(Buffer.from(fileData.content, 'base64').toString());
+    
+    // 2. Tambah ulasan baru
     const newReview = {
       id: Date.now(),
-      name: body.name || "Anonim",
-      rating: Number(body.rating) || 5,
-      comment: body.comment || "",
-      date: new Date().toLocaleDateString('id-ID'),
+      name,
+      rating,
+      comment,
+      date: new Date().toISOString()
     };
+    
+    const updatedContent = [newReview, ...currentContent];
 
-    // 4. Gabungkan (Data baru di urutan paling atas)
-    const updatedReviews = [newReview, ...currentReviews];
+    // 3. Push balik ke GitHub
+    await axios.put(GITHUB_API_URL, {
+      message: `New review from ${name}`,
+      content: Buffer.from(JSON.stringify(updatedContent, null, 2)).toString('base64'),
+      sha: fileData.sha
+    }, {
+      headers: { Authorization: `Bearer ${process.env.GH_TOKEN}` }
+    });
 
-    // 5. Simpan ke file
-    saveReviews(updatedReviews);
-
-    // 6. Balikin respon sukses
-    return NextResponse.json(newReview);
-
-  } catch (err: any) {
-    console.error("❌ Error di API POST:", err.message);
-    return NextResponse.json(
-      { error: "Gagal memproses ulasan", details: err.message }, 
-      { status: 500 }
-    );
+    return NextResponse.json({ success: true, review: newReview });
+  } catch (error: any) {
+    console.error("Error update GitHub:", error.response?.data || error.message);
+    return NextResponse.json({ error: "Gagal kirim ulasan" }, { status: 500 });
   }
 }
