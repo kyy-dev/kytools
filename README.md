@@ -92,6 +92,3 @@ MIT
 
 - WhatsApp: https://wa.me/6287791889957
 - GitHub: https://github.com/kyy-dev
-```
-
-Sudah mencakup semua tools yang ada di situsnya, stack yang diambil dari `package.json`, dan info kontak dari footer situs. Tinggal copy-paste ke `README.md`.
