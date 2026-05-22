@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KyTools
 
-## Getting Started
+Satu ekosistem untuk semua kebutuhan digitalmu.
 
-First, run the development server:
+Live: https://kytools.vercel.app
+
+---
+
+## Tentang
+
+KyTools adalah kumpulan tools digital berbasis web yang dibangun di atas Next.js. Dirancang untuk mempercepat workflow sehari-hari, mulai dari penghapus latar belakang foto, downloader media sosial, hingga tools untuk developer.
+
+Dibuat oleh Fadhillah Dzaki Nasrullah.
+
+---
+
+## Tools yang Tersedia
+
+| Tool | Deskripsi |
+|---|---|
+| Remove Background | Hapus latar belakang foto otomatis dengan AI |
+| Brat Generator | Buat teks minimalis estetik gaya Brat |
+| Social Downloader | Unduh media dari Instagram, Facebook, Spotify, YouTube, TikTok |
+| JSON Formatter | Rapikan kode JSON atau cek error format |
+| Image Converter | Konversi format JPG, PNG, WEBP di browser |
+| Base64 Tool | Enkripsi atau dekripsi teks ke Base64 |
+
+---
+
+## Tech Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Lucide React
+- Font Awesome
+- Axios
+
+---
+
+## Memulai
+
+Clone repositori dan install dependensi:
+
+```bash
+git clone https://github.com/kyy-dev/kytools.git
+cd kytools
+npm install
+```
+
+Jalankan development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka http://localhost:3000 di browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+| Command | Deskripsi |
+|---|---|
+| `npm run dev` | Jalankan development server |
+| `npm run build` | Build untuk production |
+| `npm run start` | Jalankan production server |
+| `npm run lint` | Jalankan linter |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Struktur Proyek
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+kytools/
+├── src/app/        # Halaman dan routing Next.js
+├── lib/            # Utility dan helper
+├── public/         # Aset statis
+└── reviews.json    # Data ulasan pengguna
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Lisensi
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
+
+---
+
+## Kontak
+
+- WhatsApp: https://wa.me/6287791889957
+- GitHub: https://github.com/kyy-dev
+```
+
+Sudah mencakup semua tools yang ada di situsnya, stack yang diambil dari `package.json`, dan info kontak dari footer situs. Tinggal copy-paste ke `README.md`.
